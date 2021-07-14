@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  noteIds: {
+    type: [Number],
+    default: [],
+  },
 })
 
 const User = mongoose.model("User", UserSchema)

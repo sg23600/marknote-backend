@@ -8,7 +8,6 @@ app.use(cors())
 connectDB()
 
 app.use("/user", require("./API/User"))
-app.use("/userexists", require("./API/userExists"))
 
 app.get("/", (req, res) => {
   res.send("It works!")
