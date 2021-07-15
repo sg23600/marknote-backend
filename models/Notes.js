@@ -1,14 +1,25 @@
 import mongoose from "mongoose"
 
+let current = new Date()
+const timeStamp = new Date(
+  Date.UTC(
+    current.getFullYear(),
+    current.getMonth(),
+    current.getDate(),
+    current.getHours(),
+    current.getMinutes(),
+    current.getSeconds(),
+    current.getMilliseconds()
+  )
+)
+
 const noteObj = {
   id: Number,
   title: String,
   body: String,
   lastEdited: {
     type: Date,
-    default: new Date().toLocaleString("en-US", {
-      timeZone: "Asia/Kolkata",
-    }),
+    default: timeStamp,
   },
   private: Boolean,
 }
