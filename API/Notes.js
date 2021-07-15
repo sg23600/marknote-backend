@@ -4,28 +4,34 @@ import Notes from "../models/Notes"
 const route = express.Router()
 // req => {obj, gId}
 
-route.post("/new", async (req, res) => {
-  await Notes.find({ googleId: req.body.googleId }, async (err, doc) => {
-    if (doc.length === 0) {
-      // add new record
-      const note = {
-        googleId: req.body.googleId,
-        notes: [
-          {
-            id: 1,
-            title: req.body.title,
-            body: req.body.body,
-            lastEdited: Date(),
-            private: req.body.private,
-          },
-        ],
-      }
-      let notesModel = new Notes(note)
-      await notesModel.save()
-      return res.json(notesModel)
+route.put("/new", async (req, res) => {
+  await Notes.findOne({ googleId: req.body.googleId }, async (err, doc) => {
+    if (doc.notes.length === 0) {
+      // first note
+      doc.notes.push({
+        id: 1,
+        title: req.body.title,
+        body: req.body.body,
+        private: req.body.private,
+      })
+      doc.save()
+      return res.json(doc)
     } else {
-      // update existing record, add new object to array
-      return res.json("updating record...")
+      let newId = Math.max.apply(
+        Math,
+        doc.notes.map((o) => {
+          return o.id
+        })
+      ) // largest ID number
+
+      doc.notes.push({
+        id: newId + 1,
+        title: req.body.title,
+        body: req.body.body,
+        private: req.body.private,
+      })
+      doc.save()
+      return res.json(doc)
     }
   }).exec()
 })
