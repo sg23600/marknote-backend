@@ -8,6 +8,8 @@ app.use(cors())
 connectDB()
 
 app.use("/user", require("./API/User"))
+app.use("/notes", require("./API/Notes"))
+
 
 app.get("/", (req, res) => {
   res.send("It works!")
