@@ -1,17 +1,6 @@
 import mongoose from "mongoose"
 
-let current = new Date()
-const timeStamp = new Date(
-  Date.UTC(
-    current.getFullYear(),
-    current.getMonth(),
-    current.getDate(),
-    current.getHours(),
-    current.getMinutes(),
-    current.getSeconds(),
-    current.getMilliseconds()
-  )
-)
+const timeStamp = new Date()
 
 const noteObj = {
   id: Number,
@@ -19,7 +8,7 @@ const noteObj = {
   body: String,
   lastEdited: {
     type: Date,
-    default: timeStamp,
+    default: timeStamp.toString(),
   },
   private: Boolean,
 }
