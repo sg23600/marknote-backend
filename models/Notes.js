@@ -1,16 +1,16 @@
 import mongoose from "mongoose"
 
-const timeStamp = new Date()
+// const timeStamp = new Date()
 
 const noteObj = {
   id: Number,
   title: String,
   body: String,
-  lastEdited: {
-    type: Date,
-    default: timeStamp.toString(),
-  },
-  private: Boolean,
+  // lastEdited: {
+  //   type: Date,
+  //   default: timeStamp.toString(),
+  // },
+  // private: Boolean,
 }
 
 const NotesSchema = new mongoose.Schema({

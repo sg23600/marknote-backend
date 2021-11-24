@@ -13,7 +13,7 @@ route.post("/", async (req, res) => {
   })
 })
 
-route.put("/new", async (req, res) => {
+route.post("/new", async (req, res) => {
   await Notes.findOne({ googleId: req.body.googleId }, async (err, doc) => {
     if (doc.notes.length === 0) {
       // first note
@@ -21,7 +21,7 @@ route.put("/new", async (req, res) => {
         id: 1,
         title: req.body.title,
         body: req.body.body,
-        private: req.body.private,
+        // private: req.body.private,
       })
       doc.save()
       return res.json(doc)
@@ -37,7 +37,7 @@ route.put("/new", async (req, res) => {
         id: newId + 1,
         title: req.body.title,
         body: req.body.body,
-        private: req.body.private,
+        // private: req.body.private,
       })
       doc.save()
       return res.json(doc)
