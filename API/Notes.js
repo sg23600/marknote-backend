@@ -52,17 +52,19 @@ route.post("/new", async (req, res) => {
 })
 
 route.post("/edit", async (req, res) => {
+  console.log("Edit \n", req.body)
   await Notes.findOne({ googleId: req.body.googleId }, (err, doc) => {
     if (doc) {
-      let dbNotes = doc.notes
+      // let dbNotes = doc.notes
 
-      for (let i = 0; i < dbNotes.length; i++) {
-        if (dbNotes[i].id === req.body.id) {
-          dbNotes[i].title = req.body.title
-          dbNotes[i].body = req.body.body
+      for (let i = 0; i < doc.notes.length; i++) {
+        if (doc.notes[i].id === req.body.id) {
+          console.log("note found!")
+          doc.notes[i].title = req.body.title
+          doc.notes[i].body = req.body.body
         }
       }
-      doc.notes = dbNotes
+      doc.markModified("notes")
       doc.save()
 
       return res.json(doc)
