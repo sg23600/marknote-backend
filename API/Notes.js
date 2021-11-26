@@ -4,18 +4,19 @@ import Notes from "../models/Notes"
 const route = express.Router()
 // req => {obj, gId}
 
-route.get("/", async (req, res) => {
-  await Notes.find({}, (err, doc) => {
-    return res.json(doc)
-  })
-})
+// route.get("/", async (req, res) => {
+//   await Notes.find({}, (err, doc) => {
+//     return res.json(doc)
+//   })
+// })
 
 route.post("/", async (req, res) => {
   await Notes.findOne({ googleId: req.body.googleId }, (err, doc) => {
     if (doc) {
-      return res.json(doc)
-    } else res.json("Not found")
-  }).exec()
+      console.log(doc.notes)
+      return res.json(doc.notes)
+    }
+  })
 })
 
 route.post("/new", async (req, res) => {
